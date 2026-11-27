@@ -66,6 +66,7 @@ streamlit run main.py
 ├── analyzer.py      # Skill normalization, matching, and role ranking
 ├── skills_db.py     # Curated role-to-skill reference profiles
 ├── test_analyzer.py # Unit tests for core analysis
+├── requirements.txt # Runtime dependencies
 ├── output.png.png   # Screenshot
 └── demo.mp4        # Walkthrough
 ```
