@@ -1,106 +1,98 @@
 # Skill Gap Analyzer
 
-A lightweight Streamlit app that compares a user's skills with a target career role, highlights gaps, calculates a readiness score, and suggests related roles.
+A small career-exploration tool that compares a user's skill list with a curated role profile and highlights areas to learn next.
 
-> **Current implementation:** rule-based skill matching against a curated skills database. It is not an LLM-powered system.
-
-## Features
-
-- Choose from roles across data, software, DevOps, cybersecurity, business and marketing
-- Enter skills using comma-separated input
-- Canonicalize common aliases (for example, `py` → `python`, `js` → `javascript`)
-- View matched, missing and additional skills
-- Calculate a role-specific readiness percentage
-- Suggest related roles based on skills
-- Explore related role mappings for additional skills
+> **What it is:** a transparent, rule-based skill matching application—not an AI hiring model or a validated employability score.
 
 ## Preview
 
-![Application output](output.png.png)
+![App preview](output.png.png)
 
-## How the analysis works
+🎬 Demo video: [View the demo](demo.mp4)
 
-1. Select a target role.
-2. Enter the skills you know.
-3. The app normalizes skill aliases and compares your skills against that role's required skill list.
-4. It displays matched, missing and additional skills, plus a readiness score.
-5. It ranks roles based on skill overlap and shows related role mappings.
+## Features
 
-The readiness score is a simple coverage metric:
+- Explore curated profiles for data, software, DevOps, cybersecurity, business, and marketing roles
+- Normalize common skill aliases (for example, `py` → `python`, `ml` → `machine learning`)
+- Identify matched, missing, and additional skills
+- Show a skill-coverage percentage for the selected profile
+- Recommend related roles based on skill overlap
+- Discover related career paths from additional skills
 
-`matched required skills / total required skills × 100`
+## How the score works
 
-It is an indicative checklist score—not a validated employability or job-readiness prediction.
+```
+Coverage = (Matched required skills / Total required skills) × 100
+```
 
-## Tech Stack
+This score is a checklist-style coverage indicator. It does not measure proficiency, project quality, experience, interview performance, or hiring probability.
+
+## Tech stack
 
 - Python
 - Streamlit
 
 ## Run locally
 
-### 1. Clone the repository
-
 ```bash
 git clone https://github.com/Madhum4107/Skill_Gap_Analyzer.git
 cd Skill_Gap_Analyzer
+python -m venv .venv
 ```
 
-### 2. Install dependencies
+Activate the environment:
+
+**Windows**
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
+
+**macOS / Linux**
+```bash
+source .venv/bin/activate
+```
+
+Install and launch:
 
 ```bash
 python -m pip install streamlit
-```
-
-### 3. Launch
-
-```bash
 streamlit run main.py
 ```
 
-## Project structure
+## Repository structure
 
 ```
-├── main.py        # Streamlit UI
-├── analyzer.py    # Normalization, matching and recommendations
-├── skills_db.py   # Role-to-skill reference database
-├── output.png.png # Preview image
-└── demo.mp4      # Demo video
+├── main.py          # Streamlit interface
+├── analyzer.py      # Skill normalization, matching, and role ranking
+├── skills_db.py     # Curated role-to-skill reference profiles
+├── test_analyzer.py # Unit tests for core analysis
+├── output.png.png   # Screenshot
+└── demo.mp4        # Walkthrough
 ```
-
-## Example
-
-**Target role:** Data Scientist  
-**Skills entered:** Python, SQL, pandas, statistics
-
-The app reports which required skills are covered, which are missing, additional skills, and the coverage score for the selected role.
-
-## Limitations
-
-- Role requirements are manually curated and may not represent every job posting.
-- Skill matching is keyword/alias-based; it does not evaluate proficiency or project evidence.
-- Scores are not validated against hiring outcomes.
-- Role recommendations are based on skill overlap, not labor-market data.
 
 ## Tests
-
-Run the core logic tests with Python's built-in test runner:
 
 ```bash
 python -m unittest test_analyzer.py
 ```
 
-## Planned improvements
+## Current limitations
 
-- Resume upload and skill extraction
-- Skill proficiency levels and evidence-based scoring
+- Skill lists are manually curated and may not match every job description.
+- Matching is based on keywords and aliases, not skill proficiency or evidence.
+- Role recommendations use overlap with the reference list.
+- Coverage percentages are not validated against employment outcomes.
+
+## Roadmap
+
+- Resume parsing with user-controlled file handling
 - Job-description comparison
-- More transparent weighted scoring
-- Deployed demo
+- Proficiency and project-evidence tracking
+- Explainable weighted skill matching
+- Improved test coverage and deployment
 
 ## Author
 
-**Madhumitha M**  
-Computer Science & Engineering (AI & ML) student | Data Science & AI projects
+**Madhumitha M** · AI & ML student
 
 [GitHub](https://github.com/Madhum4107) · [LinkedIn](https://www.linkedin.com/in/madhumitha4107/)
