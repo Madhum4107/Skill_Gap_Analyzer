@@ -5,10 +5,19 @@ from analyzer import analyze_skills, normalize_skills, recommend_roles
 
 class SkillAnalyzerTests(unittest.TestCase):
     def test_aliases_and_duplicate_removal(self):
-        self.assertEqual(normalize_skills([" PY ", "py", "JS", "reactjs"]), ["python", "javascript", "react"])
+        self.assertEqual(
+            normalize_skills([" PY ", "py", "ML", "JS", "reactjs", "powerbi"]),
+            ["python", "machine learning", "javascript", "react", "power bi"],
+        )
 
     def test_multiword_skill_normalization(self):
-        self.assertEqual(normalize_skills(["Machine   Learning", "machine learning"]), ["machine learning"])
+        self.assertEqual(
+            normalize_skills(["Machine   Learning", "machine learning"]),
+            ["machine learning"],
+        )
+
+    def test_none_empty_values_and_order_are_safe(self):
+        self.assertEqual(normalize_skills([None, "", "  ", "SQL", "sql"]), ["sql"])
 
     def test_coverage_and_deterministic_outputs(self):
         matched, missing, extra, score = analyze_skills(
@@ -22,14 +31,19 @@ class SkillAnalyzerTests(unittest.TestCase):
     def test_empty_required_skills_is_safe(self):
         self.assertEqual(analyze_skills(["python"], []), ([], [], ["python"], 0.0))
 
-    def test_role_recommendations_rank_by_coverage(self):
+    def test_empty_user_skills(self):
+        self.assertEqual(analyze_skills([], ["python", "sql"]), ([], ["python", "sql"], [], 0.0))
+
+    def test_role_recommendations_rank_by_coverage_and_tie_break(self):
         roles = {
             "small_role": ["python", "sql"],
             "big_role": ["python", "sql", "pandas", "numpy"],
             "other": ["java"],
         }
-        self.assertEqual(recommend_roles(["python", "sql"], roles)[:2],
-                         [("small_role", 2), ("big_role", 2)])
+        self.assertEqual(
+            recommend_roles(["python", "sql"], roles)[:2],
+            [("small_role", 2), ("big_role", 2)],
+        )
 
 
 if __name__ == "__main__":
