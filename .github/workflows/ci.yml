@@ -1,4 +1,6 @@
 name: Skill Gap Analyzer CI
+permissions:
+  contents: read
 
 on:
   push:
