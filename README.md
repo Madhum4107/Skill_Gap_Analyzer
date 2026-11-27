@@ -55,7 +55,7 @@ source .venv/bin/activate
 Install and launch:
 
 ```bash
-python -m pip install streamlit
+python -m pip install -r requirements.txt
 streamlit run main.py
 ```
 
