@@ -82,13 +82,21 @@ The app reports which required skills are covered, which are missing, additional
 - Scores are not validated against hiring outcomes.
 - Role recommendations are based on skill overlap, not labor-market data.
 
+## Tests
+
+Run the core logic tests with Python's built-in test runner:
+
+```bash
+python -m unittest test_analyzer.py
+```
+
 ## Planned improvements
 
 - Resume upload and skill extraction
 - Skill proficiency levels and evidence-based scoring
 - Job-description comparison
 - More transparent weighted scoring
-- Unit tests and a deployed demo
+- Deployed demo
 
 ## Author
 
